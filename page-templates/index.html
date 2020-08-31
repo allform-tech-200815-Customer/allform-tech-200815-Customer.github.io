@@ -81,14 +81,22 @@
 
 <div>
   <table class="charts-table">
-    <td class="charts-td-50">
+    <td class="charts-td-50" class="charts-canvas">
       <canvas id="myChart1"></canvas>
     </td>
     <td class="charts-td-50">
-      <canvas id="myChart2"></canvas>
+      <canvas id="myChart2" class="charts-canvas"></canvas>
     </td>
   </table>
 
+  <table class="charts-table">
+    <td class="charts-td-50">
+      <canvas id="myChart3" class="charts-canvas"></canvas>
+    </td>
+    <td class="charts-td-50">
+      <canvas id="myChart4" class="charts-canvas"></canvas>
+    </td>
+  </table>
 </div>
 
 
@@ -281,7 +289,9 @@
     options: {
         title: {
             display: true,
-            text: 'Monthly'
+            text: 'Monthly',
+            fontStyle: 'bold',
+            fontSize: 20,
         },
         legend: {
             display: false,
@@ -331,7 +341,7 @@
     options: {
       title: {
         display: true,
-        text: 'Employee Overview',
+        text: 'By State',
         fontStyle: 'bold',
         fontSize: 20
       },
@@ -361,6 +371,167 @@
       }
     }
   });
+
+  var ctx = document.getElementById('myChart3').getContext('2d');
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: '#9c7272',
+            borderColor: 'rgb(156, 114, 114)',
+            borderWidth: '0px',
+            data: [18, 10, 5, 2, 20, 30, 45]
+        }]
+    },
+    options: {
+        title: {
+            display: true,
+            text: 'Monthly'
+        },
+        legend: {
+            display: false,
+            labels: {
+                fontColor: 'rgb(255, 99, 132)'
+            }
+        },
+        tooltips: {
+          callbacks: {
+            // this callback is used to create the tooltip label
+            label: function(tooltipItem, data) {
+              // get the data label and data value to display
+              // convert the data value to local string so it uses a comma seperated number
+              var dataLabel = data.labels[tooltipItem.index];
+              var value = ': $' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString() + ' K';
+
+              // make this isn't a multi-line label (e.g. [["label 1 - line 1, "line 2, ], [etc...]])
+              if (Chart.helpers.isArray(dataLabel)) {
+                // show value on first line of multiline label
+                // need to clone because we are changing the value
+                dataLabel = dataLabel.slice();
+                dataLabel[0] += value;
+              } else {
+                dataLabel += value;
+              }
+
+              // return the text to display on the tooltip
+              return dataLabel;
+            }
+          }
+        }
+    }
+  });
+
+
+  var ctx = document.getElementById('myChart4').getContext('2d');
+  const colors = {
+    green: {
+      fill: '#e0eadf',
+      stroke: '#5eb84d',
+    },
+    lightBlue: {
+      stroke: '#6fccdd',
+    },
+    darkBlue: {
+      fill: '#92bed2',
+      stroke: '#3282bf',
+    },
+    purple: {
+      fill: '#8fa8c8',
+      stroke: '#75539e',
+    },
+  };
+
+  const cTA = [26, 36, 42, 38, 40, 30, 12];
+  const cTB = [34, 44, 33, 24, 25, 28, 25];
+  const cTC = [16, 13, 25, 33, 40, 33, 45];
+  const cTD = [5, 9, 10, 9, 18, 19, 20];
+  const xData = [13, 14, 15, 16, 17, 18, 19];
+
+  var chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: xData,
+      datasets: [{
+        label: "Contract Type A",
+        fill: true,
+        backgroundColor: colors.purple.fill,
+        pointBackgroundColor: colors.purple.stroke,
+        borderColor: colors.purple.stroke,
+        pointHighlightStroke: colors.purple.stroke,
+        borderCapStyle: 'butt',
+        data: cTA,
+
+      }, {
+        label: "Contract Type B",
+        fill: true,
+        backgroundColor: colors.darkBlue.fill,
+        pointBackgroundColor: colors.darkBlue.stroke,
+        borderColor: colors.darkBlue.stroke,
+        pointHighlightStroke: colors.darkBlue.stroke,
+        borderCapStyle: 'butt',
+        data: cTB,
+      }, {
+        label: "Contract Type C",
+        fill: true,
+        backgroundColor: colors.green.fill,
+        pointBackgroundColor: colors.lightBlue.stroke,
+        borderColor: colors.lightBlue.stroke,
+        pointHighlightStroke: colors.lightBlue.stroke,
+        borderCapStyle: 'butt',
+        data: cTC,
+      }, {
+        label: "Contract Type D",
+        fill: true,
+        backgroundColor: colors.green.fill,
+        pointBackgroundColor: colors.green.stroke,
+        borderColor: colors.green.stroke,
+        pointHighlightStroke: colors.green.stroke,
+        data: cTD,
+      }]
+    },
+    options: {
+      responsive: false,
+      // Can't just just `stacked: true` like the docs say
+      scales: {
+        yAxes: [{
+          stacked: true,
+        }]
+      },
+      animation: {
+        duration: 750,
+      },
+      tooltips: {
+        callbacks: {
+          // this callback is used to create the tooltip label
+          label: function(tooltipItem, data) {
+            // get the data label and data value to display
+            // convert the data value to local string so it uses a comma seperated number
+            var dataLabel = data.labels[tooltipItem.index];
+            var value = ': $' + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].toLocaleString() + ' K';
+
+            // make this isn't a multi-line label (e.g. [["label 1 - line 1, "line 2, ], [etc...]])
+            if (Chart.helpers.isArray(dataLabel)) {
+              // show value on first line of multiline label
+              // need to clone because we are changing the value
+              dataLabel = dataLabel.slice();
+              dataLabel[0] += value;
+            } else {
+              dataLabel += value;
+            }
+
+            // return the text to display on the tooltip
+            return dataLabel;
+          }
+        }
+      }
+    }
+  });
+
 
 </script>
 </body>

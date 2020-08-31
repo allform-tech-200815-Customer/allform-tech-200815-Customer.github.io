@@ -241,5 +241,8 @@ a{ text-decoration: none; color:black;}
 }
 .charts-td-50{
   width:50%
+}
 
+.charts-canvas{
+  width:100%;
 }
