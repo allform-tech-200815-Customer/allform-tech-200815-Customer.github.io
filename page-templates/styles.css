@@ -63,7 +63,7 @@ a{ text-decoration: none; color:black;}
 .tile{
   border: solid gray 1px;
   height: 100px;
-  min-width: 300px;
+  min-width: 500px;
   font-size: 40pt;
   box-shadow: 2px 2px 2px #888888, 2px 2px 2px #888888, 2px 2px 2px #888888;
   font-weight: bold;
