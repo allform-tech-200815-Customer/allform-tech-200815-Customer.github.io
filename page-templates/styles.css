@@ -236,8 +236,8 @@ a{ text-decoration: none; color:black;}
 /*Paper*/
 .paper {
   width: 98%;
-  padding: 20px;
-  margin: 30px auto;
+  padding: 4px;
+  margin: 4px auto;
   background-color: #FFF;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, .1);
   overflow: hidden;
