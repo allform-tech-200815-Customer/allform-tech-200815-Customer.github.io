@@ -235,7 +235,7 @@ a{ text-decoration: none; color:black;}
 
 /*Paper*/
 .paper {
-  max-width: 650px;
+  width: 95%;
   padding: 20px;
   margin: 30px auto;
   background-color: #FFF;
